@@ -174,8 +174,8 @@ class SQLConnectorOracleHsInternal extends SQLConnector{
 	protected SQLConnectorOracleHsInternal() {
 		// Bitte auf Ihre Gruppe anpassen ...
 		this.databaseURL =     "jdbc:oracle:thin:@iwi-lkit-db-01:1521:LAB1";
-		this.user =            "dbpraxNn";  // TODO für Ihre Gruppe anpassen
-		this.password =        "dbpraxNn";  // TODO für Ihre Gruppe anpassen
+		this.user =            "dbprax25";
+		this.password =        "dbprax25";
 		this.driverClassName = "oracle.jdbc.OracleDriver";
 	}
 }
@@ -185,8 +185,8 @@ class SQLConnectorOracleHsInternal extends SQLConnector{
 class LoginDatPostgreSqlPool extends SQLConnector{
 	protected LoginDatPostgreSqlPool() {
 		this.databaseURL = "jdbc:postgresql://localhost:5432/dbprax";
-		this.user = "dbpraxNn";      // TODO für Ihre Gruppe anpassen
-		this.password = "dbpraxNn";  // TODO für Ihre Gruppe anpassen
+		this.user = "dbprax25";
+		this.password = "dbprax25";
 		this.driverClassName = "org.postgresql.Driver";
 	}
 

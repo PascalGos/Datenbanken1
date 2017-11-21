@@ -119,9 +119,21 @@ public abstract class SQLConnector {
      * (siehe auch Dokumentation des Datenbanktreibers)
      *  - Erstellt eine Verbindung mit Hilfe der Klassenvariablen.
      */
-    protected Connection getConnection() {
+    protected Connection getConnection() throws SQLException{
         // TODO begin
-        return null;
+    	try{
+    		Class.forName(driverClassName);
+    		Connection conn = DriverManager.getConnection(databaseURL, user, password);
+    		return conn;
+    	}
+    	catch(SQLException e){
+    		System.out.println(e);
+    		//e.printStackTrace();
+    	}
+    	catch(ClassNotFoundException e){
+    		System.out.println(e);
+    	}
+    	return null;
         // TODO end
     }
 
@@ -155,10 +167,12 @@ public abstract class SQLConnector {
         if (null != connection && !connection.isClosed()) {
             System.out.println("Connection successfully established.");
         } else {
-            System.err.println("Establishing the connection failed!");
+            System.err.println("/nEstablishing the connection failed!");
         }
-
-        connection.close();
+        
+        if(connection!=null){
+        	connection.close();
+        }
     }
 }
 
@@ -174,8 +188,8 @@ class SQLConnectorOracleHsInternal extends SQLConnector{
 	protected SQLConnectorOracleHsInternal() {
 		// Bitte auf Ihre Gruppe anpassen ...
 		this.databaseURL =     "jdbc:oracle:thin:@iwi-lkit-db-01:1521:LAB1";
-		this.user =            "dbprax25";
-		this.password =        "dbprax25";
+		this.user =            "dbprax25";  // TODO für Ihre Gruppe anpassen
+		this.password =        "fuckyou";  // TODO für Ihre Gruppe anpassen
 		this.driverClassName = "oracle.jdbc.OracleDriver";
 	}
 }
@@ -185,8 +199,8 @@ class SQLConnectorOracleHsInternal extends SQLConnector{
 class LoginDatPostgreSqlPool extends SQLConnector{
 	protected LoginDatPostgreSqlPool() {
 		this.databaseURL = "jdbc:postgresql://localhost:5432/dbprax";
-		this.user = "dbprax25";
-		this.password = "dbprax25";
+		this.user = "dbpraxNn";      // TODO für Ihre Gruppe anpassen
+		this.password = "dbpraxNn";  // TODO für Ihre Gruppe anpassen
 		this.driverClassName = "org.postgresql.Driver";
 	}
 

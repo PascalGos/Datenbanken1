@@ -73,6 +73,66 @@ public class Output {
 		// Alles andere in Anführungszeichen
 		return true;
 	}
+	
+	/**
+	 *  Gibt den passenden Typ (aus java.sql.Types) als String zurück
+	 *  
+	 *  @param alle aus Types
+	 *  @return name des Types 
+	 */
+	private static String isType (int type){
+		switch (type) {
+			case Types.BIT:
+				return "BIT";
+			case Types.TINYINT:
+				return "TINYINT";
+			case Types.SMALLINT:
+				return "SMALLINT";
+			case Types.INTEGER:
+				return "INTEGER";
+			case Types.BIGINT:
+				return "BIGINT";
+			case Types.FLOAT:
+				return "FLOAT";
+			case Types.REAL:
+				return "REAL";
+			case Types.DOUBLE:
+				return "DOUBLE";
+			case Types.NUMERIC:
+				return "NUMERIC";
+			case Types.DECIMAL:
+				return "DECIMAL";
+			case Types.NULL:
+				return "NULL";
+			case Types.BOOLEAN:
+				return "BOOLEAN";
+			case Types.ARRAY:
+				return "ARRAY";
+			case Types.BINARY:
+				return "BINARY";
+			case Types.DATE:
+				return "DATE";
+			case Types.CHAR:
+				return "CHAR";
+			case Types.TIME:
+				return "TIME";
+			case Types.JAVA_OBJECT:
+				return "JAVA_OBJECT";
+			case Types.TIMESTAMP:
+				return "TIMESTAMP";
+			case Types.CLOB:
+				return "CLOB";
+			case Types.LONGNVARCHAR:
+				return "LONGNVARCHAR";
+			case Types.LONGVARBINARY:
+				return "LONGVARBINARY";
+			case Types.LONGVARCHAR:
+				return "LONGVARCHAR";
+			case Types.VARCHAR:
+				return "VARCHAR";
+		}
+		return "UNKNOWN";
+	}
 
 	/**
 	 * Gibt eine gegebene ResultSet-Instanz im CSV-Format aus.
@@ -86,8 +146,21 @@ public class Output {
 	 */
 	public static void resultToCsv(ResultSet rs, PrintStream out)
 			throws SQLException {
-
 		// TODO begin
+		ResultSetMetaData meta = rs.getMetaData();
+		int columns = meta.getColumnCount();
+		for (int column = 1; column <= columns; column++) {
+			out.print("\"" + meta.getColumnLabel(column) + "\"" + ";");
+		}
+		out.println();
+		
+		while (rs.next()) {
+			for (int column = 1; column <= columns; column++) {
+				String cell = rs.getString(column);
+				out.print("\"" + (cell != null ? cell : "") + "\"" + ";");
+			}
+			out.println();
+		}
 		// TODO end
 	}
 
@@ -130,6 +203,12 @@ public class Output {
 
 		// Zeile mit den Typen ausgeben
 		// TODO begin
+		for (int column = 1; column <= columns; column++) {
+			//out.printf( isType(meta.getColumnType(column)));
+			out.printf((column > 1 ? "| " : " ") + "%-" + width[column - 1]
+					+ "." + width[column - 1] + "s ", isType(meta.getColumnType(column)));
+		}
+		out.println();
 		// TODO end
 
 		// Ausgabe horizontaler Abstandhalter

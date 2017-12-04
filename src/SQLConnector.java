@@ -119,7 +119,12 @@ public abstract class SQLConnector {
      * (siehe auch Dokumentation des Datenbanktreibers)
      *  - Erstellt eine Verbindung mit Hilfe der Klassenvariablen.
      */
+<<<<<<< HEAD
+    protected Connection getConnection() {
+
+=======
     protected Connection getConnection() throws SQLException{
+>>>>>>> 4dc048d50d9520b3c968c6eff539206a7f5363a2
         // TODO begin
     	try{
     		Class.forName(driverClassName);

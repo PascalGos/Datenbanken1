@@ -119,7 +119,9 @@ public abstract class SQLConnector {
      * (siehe auch Dokumentation des Datenbanktreibers)
      *  - Erstellt eine Verbindung mit Hilfe der Klassenvariablen.
      */
+
     protected Connection getConnection() throws SQLException{
+
         // TODO begin
     	try{
     		Class.forName(driverClassName);
@@ -167,7 +169,8 @@ public abstract class SQLConnector {
         if (null != connection && !connection.isClosed()) {
             System.out.println("Connection successfully established.");
         } else {
-            System.err.println("/nEstablishing the connection failed!");
+
+            System.err.println("\nEstablishing the connection failed!");
         }
         
         if(connection!=null){

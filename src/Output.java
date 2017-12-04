@@ -1,4 +1,5 @@
 ﻿import java.io.PrintStream;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -156,7 +157,7 @@ public class Output {
 		
 		while (rs.next()) {
 			for (int column = 1; column <= columns; column++) {
-				String cell = rs.getString(column);
+				String cell = rs.getString(column).trim();
 				out.print("\"" + (cell != null ? cell : "") + "\"" + ";");
 			}
 			out.println();

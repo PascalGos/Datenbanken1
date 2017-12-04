@@ -68,6 +68,14 @@ public class CustomerSupplierRelations {
 			throws SQLException {
 
 		// TODO begin
+		connection = SQLConnector.getTestInstance().getConnection();
+		try {
+			stmtKundeLieferanten = connection.prepareStatement("SELECT DISTINCT KUNDE.NR, KUNDE.NAME, LIEFERANT.NR, LIEFERANT.NAME FROM KUNDE JOIN AUFTRAG ON KUNDE.NR = AUFTRAG.KUNDNR JOIN AUFTRAGSPOSTEN ON AUFTRAGSPOSTEN.AUFTRNR = AUFTRAG.AUFTRNR JOIN TEILESTAMM ON TEILESTAMM.TEILNR = AUFTRAGSPOSTEN.TEILNR JOIN LIEFERUNG ON LIEFERUNG.TEILNR = TEILESTAMM.TEILNR JOIN LIEFERANT ON LIEFERANT.NR = LIEFERUNG.LIEFNR WHERE KUNDE.NR>=? AND KUNDE.NR<=?");
+		}
+		catch (SQLException e){
+    		System.out.println(e);
+    		e.printStackTrace();
+		}
 		// TODO end
 	}
 
@@ -86,6 +94,22 @@ public class CustomerSupplierRelations {
 	 */
 	public ResultSet getKundeLieferanten(int kdNr) throws SQLException {
 		// TODO begin
+		try{
+			if (kdNr != 0){
+				stmtKundeLieferanten.setInt(1, kdNr);
+				stmtKundeLieferanten.setInt(2, kdNr);
+			}
+			else{
+				stmtKundeLieferanten.setInt(1,0);
+				stmtKundeLieferanten.setInt(2,10000);
+			}
+			ResultSet rs = stmtKundeLieferanten.executeQuery();
+			return rs;
+		}
+		catch (SQLException e){
+			System.out.println(e);
+    		e.printStackTrace();
+		}
 		return null;
 		// TODO end
 	}
@@ -97,6 +121,14 @@ public class CustomerSupplierRelations {
 	public void close() throws SQLException {
 		// Hinweis: Stellen Sie sicher, dass dies wirklich aufgerufen wird.
 		// TODO begin
+		try{
+			connection.close();
+			stmtKundeLieferanten.close();
+		}
+		catch (SQLException e){
+			System.out.println(e);
+    		e.printStackTrace();
+		}
 		// TODO end
 	}
 
@@ -118,6 +150,7 @@ public class CustomerSupplierRelations {
 
 		// Hinweis: schließen sie alle Ressourcen
 		// TODO begin
+		csr.close();
 		// TODO end
 	}
 

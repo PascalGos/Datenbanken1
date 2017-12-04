@@ -119,12 +119,9 @@ public abstract class SQLConnector {
      * (siehe auch Dokumentation des Datenbanktreibers)
      *  - Erstellt eine Verbindung mit Hilfe der Klassenvariablen.
      */
-<<<<<<< HEAD
-    protected Connection getConnection() {
 
-=======
     protected Connection getConnection() throws SQLException{
->>>>>>> 4dc048d50d9520b3c968c6eff539206a7f5363a2
+
         // TODO begin
     	try{
     		Class.forName(driverClassName);
@@ -172,6 +169,7 @@ public abstract class SQLConnector {
         if (null != connection && !connection.isClosed()) {
             System.out.println("Connection successfully established.");
         } else {
+
             System.err.println("\nEstablishing the connection failed!");
         }
         
@@ -194,7 +192,7 @@ class SQLConnectorOracleHsInternal extends SQLConnector{
 		// Bitte auf Ihre Gruppe anpassen ...
 		this.databaseURL =     "jdbc:oracle:thin:@iwi-lkit-db-01:1521:LAB1";
 		this.user =            "dbprax25";  // TODO für Ihre Gruppe anpassen
-		this.password =        "fuckyou1";  // TODO für Ihre Gruppe anpassen
+		this.password =        "fuckyou";  // TODO für Ihre Gruppe anpassen
 		this.driverClassName = "oracle.jdbc.OracleDriver";
 	}
 }

@@ -120,6 +120,7 @@ public abstract class SQLConnector {
      *  - Erstellt eine Verbindung mit Hilfe der Klassenvariablen.
      */
     protected Connection getConnection() {
+
         // TODO begin
         return null;
         // TODO end

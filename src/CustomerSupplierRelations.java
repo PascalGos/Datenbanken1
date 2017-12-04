@@ -70,7 +70,13 @@ public class CustomerSupplierRelations {
 		// TODO begin
 		connection = SQLConnector.getTestInstance().getConnection();
 		try {
-			stmtKundeLieferanten = connection.prepareStatement("SELECT DISTINCT KUNDE.NR, KUNDE.NAME, LIEFERANT.NR, LIEFERANT.NAME FROM KUNDE JOIN AUFTRAG ON KUNDE.NR = AUFTRAG.KUNDNR JOIN AUFTRAGSPOSTEN ON AUFTRAGSPOSTEN.AUFTRNR = AUFTRAG.AUFTRNR JOIN TEILESTAMM ON TEILESTAMM.TEILNR = AUFTRAGSPOSTEN.TEILNR JOIN LIEFERUNG ON LIEFERUNG.TEILNR = TEILESTAMM.TEILNR JOIN LIEFERANT ON LIEFERANT.NR = LIEFERUNG.LIEFNR WHERE KUNDE.NR>=? AND KUNDE.NR<=?");
+			stmtKundeLieferanten = connection.prepareStatement("SELECT DISTINCT KUNDE.NR, KUNDE.NAME, LIEFERANT.NR, LIEFERANT.NAME FROM KUNDE "
+					+ "JOIN AUFTRAG ON KUNDE.NR = AUFTRAG.KUNDNR "
+					+ "JOIN AUFTRAGSPOSTEN ON AUFTRAGSPOSTEN.AUFTRNR = AUFTRAG.AUFTRNR "
+					+ "JOIN TEILESTAMM ON TEILESTAMM.TEILNR = AUFTRAGSPOSTEN.TEILNR "
+					+ "JOIN LIEFERUNG ON LIEFERUNG.TEILNR = TEILESTAMM.TEILNR "
+					+ "JOIN LIEFERANT ON LIEFERANT.NR = LIEFERUNG.LIEFNR "
+					+ "WHERE KUNDE.NR=? OR ?=0");
 		}
 		catch (SQLException e){
     		System.out.println(e);
@@ -95,14 +101,11 @@ public class CustomerSupplierRelations {
 	public ResultSet getKundeLieferanten(int kdNr) throws SQLException {
 		// TODO begin
 		try{
-			if (kdNr != 0){
+			
 				stmtKundeLieferanten.setInt(1, kdNr);
 				stmtKundeLieferanten.setInt(2, kdNr);
-			}
-			else{
-				stmtKundeLieferanten.setInt(1,0);
-				stmtKundeLieferanten.setInt(2,10000);
-			}
+			
+			
 			ResultSet rs = stmtKundeLieferanten.executeQuery();
 			return rs;
 		}
